@@ -32,7 +32,8 @@ import 'image_message_view.dart';
 import 'reaction_widget.dart';
 import 'text_message_view.dart';
 import 'voice_message_view.dart';
-import 'file_message_view.dart'; // ADD THIS IMPORT
+import 'file_message_view.dart'; 
+import 'video_message_view.dart'; // ADD THIS IMPORT
 
 class MessageView extends StatefulWidget {
   const MessageView({
@@ -170,87 +171,96 @@ class _MessageViewState extends State<MessageView>
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           (() {
-                if (message.isAllEmoji) {
-                  return Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      Padding(
-                        padding: emojiMessageConfiguration?.padding ??
-                            EdgeInsets.fromLTRB(
-                              leftPadding2,
-                              4,
-                              leftPadding2,
-                              widget.message.reaction.reactions.isNotEmpty
-                                  ? 14
-                                  : 0,
-                            ),
-                        child: Transform.scale(
-                          scale: widget.shouldHighlight
-                              ? widget.highlightScale
-                              : 1.0,
-                          child: Text(
-                            message,
-                            style: emojiMessageConfiguration?.textStyle ??
-                                const TextStyle(fontSize: 30),
-                          ),
+            if (message.isAllEmoji) {
+              return Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Padding(
+                    padding: emojiMessageConfiguration?.padding ??
+                        EdgeInsets.fromLTRB(
+                          leftPadding2,
+                          4,
+                          leftPadding2,
+                          widget.message.reaction.reactions.isNotEmpty
+                              ? 14
+                              : 0,
                         ),
+                    child: Transform.scale(
+                      scale: widget.shouldHighlight
+                          ? widget.highlightScale
+                          : 1.0,
+                      child: Text(
+                        message,
+                        style: emojiMessageConfiguration?.textStyle ??
+                            const TextStyle(fontSize: 30),
                       ),
-                      if (widget.message.reaction.reactions.isNotEmpty)
-                        ReactionWidget(
-                          reaction: widget.message.reaction,
-                          messageReactionConfig:
-                              messageConfig?.messageReactionConfig,
-                          isMessageBySender: widget.isMessageBySender,
-                        ),
-                    ],
-                  );
-                } else if (widget.message.messageType.isImage) {
-                  return ImageMessageView(
-                    message: widget.message,
-                    isMessageBySender: widget.isMessageBySender,
-                    imageMessageConfig: messageConfig?.imageMessageConfig,
-                    messageReactionConfig: messageConfig?.messageReactionConfig,
-                    highlightImage: widget.shouldHighlight,
-                    highlightScale: widget.highlightScale,
-                  );
-                }
-                // ADDED THIS ELSE IF FOR MessageType.file
-                else if (widget.message.messageType == MessageType.file) {
-                  return FileMessageView(
-                    message: widget.message,
-                    isMessageBySender: widget.isMessageBySender,
-                    // You can add more configurations here if FileMessageView needs them
-                    // fileMessageConfig: messageConfig?.fileMessageConfig, // Uncomment if you add a fileMessageConfig to MessageConfiguration
-                  );
-                }
-                // END OF ADDED ELSE IF
-                else if (widget.message.messageType.isText) {
-                  return TextMessageView(
-                    inComingChatBubbleConfig: widget.inComingChatBubbleConfig,
-                    outgoingChatBubbleConfig: widget.outgoingChatBubbleConfig,
-                    isMessageBySender: widget.isMessageBySender,
-                    message: widget.message,
-                    chatBubbleMaxWidth: widget.chatBubbleMaxWidth,
-                    messageReactionConfig: messageConfig?.messageReactionConfig,
-                    highlightColor: widget.highlightColor,
-                    highlightMessage: widget.shouldHighlight,
-                  );
-                } else if (widget.message.messageType.isVoice) {
-                  return VoiceMessageView(
-                    screenWidth: MediaQuery.of(context).size.width,
-                    message: widget.message,
-                    config: messageConfig?.voiceMessageConfig,
-                    onMaxDuration: widget.onMaxDuration,
-                    isMessageBySender: widget.isMessageBySender,
-                    messageReactionConfig: messageConfig?.messageReactionConfig,
-                    inComingChatBubbleConfig: widget.inComingChatBubbleConfig,
-                    outgoingChatBubbleConfig: widget.outgoingChatBubbleConfig,
-                  );
-                } else if (widget.message.messageType.isCustom &&
-                    messageConfig?.customMessageBuilder != null) {
-                  return messageConfig?.customMessageBuilder!(widget.message);
-                }
-              }()) ??
+                    ),
+                  ),
+                  if (widget.message.reaction.reactions.isNotEmpty)
+                    ReactionWidget(
+                      reaction: widget.message.reaction,
+                      messageReactionConfig:
+                          messageConfig?.messageReactionConfig,
+                      isMessageBySender: widget.isMessageBySender,
+                    ),
+                ],
+              );
+            } else if (widget.message.messageType.isImage) {
+              return ImageMessageView(
+                message: widget.message,
+                isMessageBySender: widget.isMessageBySender,
+                imageMessageConfig: messageConfig?.imageMessageConfig,
+                messageReactionConfig: messageConfig?.messageReactionConfig,
+                highlightImage: widget.shouldHighlight,
+                highlightScale: widget.highlightScale,
+              );
+            }
+            // ADDED THIS ELSE IF FOR MessageType.file
+            else if (widget.message.messageType == MessageType.file) {
+              return FileMessageView(
+                message: widget.message,
+                isMessageBySender: widget.isMessageBySender,
+                // You can add more configurations here if FileMessageView needs them
+                // fileMessageConfig: messageConfig?.fileMessageConfig, // Uncomment if you add a fileMessageConfig to MessageConfiguration
+              );
+            }
+            // ADDED THIS ELSE IF FOR MessageType.video
+            else if (widget.message.messageType.isVideo) {
+              return VideoMessageView(
+                message: widget.message,
+                isMessageBySender: widget.isMessageBySender,
+                // You can add more configurations here if VideoMessageView needs them
+                // videoMessageConfig: messageConfig?.videoMessageConfig, // Uncomment if you add a videoMessageConfig to MessageConfiguration
+              );
+            }
+            // END OF ADDED ELSE IF
+            else if (widget.message.messageType.isText) {
+              return TextMessageView(
+                inComingChatBubbleConfig: widget.inComingChatBubbleConfig,
+                outgoingChatBubbleConfig: widget.outgoingChatBubbleConfig,
+                isMessageBySender: widget.isMessageBySender,
+                message: widget.message,
+                chatBubbleMaxWidth: widget.chatBubbleMaxWidth,
+                messageReactionConfig: messageConfig?.messageReactionConfig,
+                highlightColor: widget.highlightColor,
+                highlightMessage: widget.shouldHighlight,
+              );
+            } else if (widget.message.messageType.isVoice) {
+              return VoiceMessageView(
+                screenWidth: MediaQuery.of(context).size.width,
+                message: widget.message,
+                config: messageConfig?.voiceMessageConfig,
+                onMaxDuration: widget.onMaxDuration,
+                isMessageBySender: widget.isMessageBySender,
+                messageReactionConfig: messageConfig?.messageReactionConfig,
+                inComingChatBubbleConfig: widget.inComingChatBubbleConfig,
+                outgoingChatBubbleConfig: widget.outgoingChatBubbleConfig,
+              );
+            } else if (widget.message.messageType.isCustom &&
+                messageConfig?.customMessageBuilder != null) {
+              return messageConfig?.customMessageBuilder!(widget.message);
+            }
+          }()) ??
               const SizedBox(),
           ValueListenableBuilder(
             valueListenable: widget.message.statusNotifier,

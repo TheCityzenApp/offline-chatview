@@ -81,7 +81,7 @@ class ReplyMessageTypeView extends StatelessWidget {
             ),
           ],
         ),
-      // Case for MessageType.file - Corrected to use a hardcoded string for now
+      // Case for MessageType.file
       MessageType.file => Row(
           children: [
             Icon(
@@ -92,6 +92,23 @@ class ReplyMessageTypeView extends StatelessWidget {
             ),
             Text(
               'File', // Changed from PackageStrings.currentLocale.file to a hardcoded string
+              style: TextStyle(
+                color: sendMessageConfig?.replyMessageColor ?? Colors.black,
+              ),
+            ),
+          ],
+        ),
+      // Case for MessageType.video - ADDED THIS BLOCK
+      MessageType.video => Row(
+          children: [
+            Icon(
+              Icons.videocam, // A suitable icon for video
+              size: 20,
+              color:
+                  sendMessageConfig?.replyMessageColor ?? Colors.grey.shade700,
+            ),
+            Text(
+              'Video', // Hardcoded string for video
               style: TextStyle(
                 color: sendMessageConfig?.replyMessageColor ?? Colors.black,
               ),
