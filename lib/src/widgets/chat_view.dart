@@ -32,6 +32,7 @@ import '../extensions/extensions.dart';
 import '../inherited_widgets/configurations_inherited_widgets.dart';
 import '../utils/timeago/timeago.dart';
 import '../values/custom_time_messages.dart';
+import '../values/typedefs.dart'; // Ensure typedefs.dart is imported for CustomVideoPlayerBuilder
 import 'chat_view_inherited_widget.dart';
 import 'send_message_widget.dart';
 import 'suggestions/suggestions_config_inherited_widget.dart';
@@ -61,9 +62,10 @@ class ChatView extends StatefulWidget {
     ChatViewStateConfiguration? chatViewStateConfig,
     this.featureActiveConfig = const FeatureActiveConfig(),
     this.emojiPickerSheetConfig,
-    this.replyMessageBuilder,
     this.replySuggestionsConfig,
+    this.replyMessageBuilder,
     this.scrollToBottomButtonConfig,
+    this.customVideoPlayerBuilder, // ADD THIS
   })  : chatBackgroundConfig =
             chatBackgroundConfig ?? const ChatBackgroundConfiguration(),
         chatViewStateConfig =
@@ -151,6 +153,9 @@ class ChatView extends StatefulWidget {
   /// Provides a configuration for scroll to bottom button config
   final ScrollToBottomButtonConfig? scrollToBottomButtonConfig;
 
+  /// Added for video player customization
+  final CustomVideoPlayerBuilder? customVideoPlayerBuilder; // ADD THIS
+
   static void closeReplyMessageView(BuildContext context) {
     final state = context.findAncestorStateOfType<_ChatViewState>();
 
@@ -212,7 +217,9 @@ class _ChatViewState extends State<ChatView>
             typeIndicatorConfig: widget.typeIndicatorConfig,
             chatBubbleConfig: widget.chatBubbleConfig,
             replyPopupConfig: widget.replyPopupConfig,
-            messageConfig: widget.messageConfig,
+            messageConfig: widget.messageConfig?.copyWith( // Use copyWith to pass customVideoPlayerBuilder
+              customVideoPlayerBuilder: widget.customVideoPlayerBuilder,
+            ),
             profileCircleConfig: widget.profileCircleConfig,
             repliedMessageConfig: widget.repliedMessageConfig,
             swipeToReplyConfig: widget.swipeToReplyConfig,
@@ -298,7 +305,9 @@ class _ChatViewState extends State<ChatView>
                                   _onSendTap(
                                       message, replyMessage, messageType);
                                 },
-                                messageConfig: widget.messageConfig,
+                                messageConfig: widget.messageConfig?.copyWith( // Use copyWith here to pass the customVideoPlayerBuilder
+                                  customVideoPlayerBuilder: widget.customVideoPlayerBuilder,
+                                ),
                                 replyMessageBuilder: widget.replyMessageBuilder,
                               ),
                           ],

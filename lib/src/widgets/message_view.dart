@@ -32,7 +32,7 @@ import 'image_message_view.dart';
 import 'reaction_widget.dart';
 import 'text_message_view.dart';
 import 'voice_message_view.dart';
-import 'file_message_view.dart'; 
+import 'file_message_view.dart';
 import 'video_message_view.dart'; // ADD THIS IMPORT
 
 class MessageView extends StatefulWidget {
@@ -53,6 +53,7 @@ class MessageView extends StatefulWidget {
     this.messageConfig,
     this.onMaxDuration,
     this.controller,
+    this.customVideoPlayerBuilder, // ADD THIS
   }) : super(key: key);
 
   /// Provides message instance of chat.
@@ -98,6 +99,8 @@ class MessageView extends StatefulWidget {
   final ChatController? controller;
 
   final ValueSetter<int>? onMaxDuration;
+
+  final CustomVideoPlayerBuilder? customVideoPlayerBuilder; // ADD THIS
 
   @override
   State<MessageView> createState() => _MessageViewState();
@@ -231,6 +234,7 @@ class _MessageViewState extends State<MessageView>
                 isMessageBySender: widget.isMessageBySender,
                 // You can add more configurations here if VideoMessageView needs them
                 // videoMessageConfig: messageConfig?.videoMessageConfig, // Uncomment if you add a videoMessageConfig to MessageConfiguration
+                customVideoPlayerBuilder: widget.customVideoPlayerBuilder, // PASS THE BUILDER HERE
               );
             }
             // END OF ADDED ELSE IF

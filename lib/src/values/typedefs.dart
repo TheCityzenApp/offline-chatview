@@ -97,3 +97,8 @@ typedef ChatTextFieldViewBuilderCallback<T> = Widget Function(
   T value,
   Widget? child,
 );
+
+/// Added for video player customization
+typedef CustomVideoPlayerBuilder = Widget Function(
+  String videoUrl, // Path or URL of the video
+);
