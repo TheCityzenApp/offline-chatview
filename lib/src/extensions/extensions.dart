@@ -118,11 +118,6 @@ extension MessageTypes on MessageType {
   bool get isVoice => this == MessageType.voice;
 
   bool get isCustom => this == MessageType.custom;
-
-  bool get isFile => this == MessageType.file; 
-
-  bool get isVideo => this == MessageType.video;
-
 }
 
 /// Extension on ConnectionState for checking specific connection.

@@ -81,40 +81,6 @@ class ReplyMessageTypeView extends StatelessWidget {
             ),
           ],
         ),
-      // Case for MessageType.file
-      MessageType.file => Row(
-          children: [
-            Icon(
-              Icons.file_copy, // Or any other suitable file icon
-              size: 20,
-              color:
-                  sendMessageConfig?.replyMessageColor ?? Colors.grey.shade700,
-            ),
-            Text(
-              'File', // Changed from PackageStrings.currentLocale.file to a hardcoded string
-              style: TextStyle(
-                color: sendMessageConfig?.replyMessageColor ?? Colors.black,
-              ),
-            ),
-          ],
-        ),
-      // Case for MessageType.video - ADDED THIS BLOCK
-      MessageType.video => Row(
-          children: [
-            Icon(
-              Icons.videocam, // A suitable icon for video
-              size: 20,
-              color:
-                  sendMessageConfig?.replyMessageColor ?? Colors.grey.shade700,
-            ),
-            Text(
-              'Video', // Hardcoded string for video
-              style: TextStyle(
-                color: sendMessageConfig?.replyMessageColor ?? Colors.black,
-              ),
-            ),
-          ],
-        ),
       MessageType.custom when customMessageReplyViewBuilder != null =>
         customMessageReplyViewBuilder!(message),
       MessageType.custom || MessageType.text => Text(

@@ -54,7 +54,6 @@ class SendMessageConfiguration {
     this.selectedImageViewHeight,
     this.imageBorderRadius,
     this.selectedImageViewBuilder,
-    this.trailing, // <--- ADDED THIS LINE
   });
 
   /// Used to give background color to text field.
@@ -128,10 +127,6 @@ class SendMessageConfiguration {
 
   /// Provides ability to build custom view for selected images in text field.
   final SelectedImageViewBuilder? selectedImageViewBuilder;
-
-  /// Provides list of widgets that will be placed at the trailing end
-  /// of the text input field, typically used for custom action buttons.
-  final List<Widget>? trailing; // <--- ADDED THIS FIELD
 }
 
 class ImagePickerIconsConfiguration {
@@ -250,7 +245,7 @@ class ImagePickerConfiguration {
   final CameraDevice? preferredCameraDevice;
 
   /// Callback when image is picked from camera or gallery,
-  ///  we can perform our task on image like adding crop options and return new image path
+  ///  we can perform our task on image like adding crop options and return new image path
   final ImagePickedCallback? onImagePicked;
 }
 
