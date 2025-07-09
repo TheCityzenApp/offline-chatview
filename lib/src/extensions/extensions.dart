@@ -119,7 +119,6 @@ extension MessageTypes on MessageType {
 
   bool get isCustom => this == MessageType.custom;
 
-  bool get isFile => this == MessageType.file; 
 }
 
 /// Extension on ConnectionState for checking specific connection.
