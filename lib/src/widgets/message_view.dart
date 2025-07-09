@@ -51,7 +51,6 @@ class MessageView extends StatefulWidget {
     this.messageConfig,
     this.onMaxDuration,
     this.controller,
-    this.customVideoPlayerBuilder, // ADD THIS
   }) : super(key: key);
 
   /// Provides message instance of chat.
@@ -97,8 +96,6 @@ class MessageView extends StatefulWidget {
   final ChatController? controller;
 
   final ValueSetter<int>? onMaxDuration;
-
-  final CustomVideoPlayerBuilder? customVideoPlayerBuilder; // ADD THIS
 
   @override
   State<MessageView> createState() => _MessageViewState();

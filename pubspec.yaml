@@ -32,8 +32,3 @@ dev_dependencies:
   flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter
-
-flutter:
-  uses-material-design: true
-  assets:
-    - assets/default_video_thumbnail.png 
